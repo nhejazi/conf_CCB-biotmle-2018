@@ -1,3 +1,5 @@
-*.{aux,log,nav,out,snm,toc,vrb}
-*.pdf
-*.html
+*.aux
+*.blg
+*.log
+*.bbl
+*.gz
