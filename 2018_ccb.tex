@@ -156,14 +156,14 @@ linewidth=2pt % Width of the border lines around content boxes
     the target parameter $\Psi_{b,n}$ \cite{hejazi2018+supervised}, and is thus
     an \textit{association profile}.
   \item A \textit{supervised distance matrix} \cite{pollard2008supervised}
-    may be constructed by applying a distance metric of choice (e.g., Euclidean,
-    correlation) to the transformed values $Z$.
+    may be constructed by applying an appropriate distance metric of choice
+    (e.g., Euclidean, correlation) to the transformed values $Z$.
   \item $\widetilde{T}(Z)$, the resultant $B \times B$ empirical distance
     matrix, encodes the dissimilarity between pairs of biomarker association
     profiles.
-  \item When $\widetilde{T}(b,b') = g(Z_b, Z_{b'})$ is small, biomarkers $b$ and
-    $b'$ have similar associations between expression and the the target
-    parameter $\Psi$, across the $n$ subjects.
+  \item When $\widetilde{T}(b,b')$ is small, the biomarkers $b$ and $b'$ have
+    similar contriubtions to the target parameter $\Psi$, across the $n$
+    subjects.
   \item \textit{Supervised clustering} may be performed by applying standard
     clustering algorithms to the matrix $\widetilde{T}$, thereby finding groups
     of biomarkers that share an association profile w.r.t.~$\Psi$.
@@ -209,7 +209,7 @@ linewidth=2pt % Width of the border lines around content boxes
 % CONCLUSION
 %-------------------------------------------------------------------------------
 
-\headerbox{Results \& Discussion}
+\headerbox{Results}
 {name=conclusion,column=2,span=2,row=0,below=results,above=references}{
 
 \vspace{0.25em}
@@ -218,25 +218,17 @@ linewidth=2pt % Width of the border lines around content boxes
 
 \begin{center}
 \vspace*{-0.5cm}
-\includegraphics[scale=0.30]{topGenesHeatmap}
+\includegraphics[scale=0.35]{supervised_heatmap}
 \captionof{figure}{A \textit{supervised heatmap} of biomarker association
   profiles with the ATE.}
 \end{center}
 
 \begin{center}
 %\vspace*{-0.49cm}  % CHANGE THIS TO ALIGN IMAGES
-\includegraphics[scale=0.2]{topGenesHeatmap}
+\includegraphics[scale=0.35]{topGenesHeatmap}
 \captionof{figure}{Improved error rate control of the variance moderated TMLE
   for the ATE.}
 \end{center}
-
-\vspace{-15pt}
-
-\begin{itemize}
-  \itemsep0.5pt
-  \item Concluding comment...
-  \item Concluding comment...
-\end{itemize}
 
 \end{multicols}
 }
@@ -291,7 +283,8 @@ linewidth=2pt % Width of the border lines around content boxes
       hejazi2018+supervised} may be constructed for use wiht asymptotically
       linear estimators:
       \begin{equation}\label{mod_eif}
-        \widetilde{t}_b = \frac{\sqrt{n}(\Psi_b(P_n) - \psi_0)}{S_b(D_{b,n})}
+        \widetilde{t}_b = \frac{\sqrt{n}(\Psi_b(P_n) -
+          \psi_{\text{null}})}{\widetilde{S}_{b,n}^2}
         \quad \text{where} \quad
         \widetilde{S}_{b,n}^2 = \frac{d_0S_0^2 + d_bS_b^2(D_{b,n})}{d_0 + d_b},
       \end{equation}
