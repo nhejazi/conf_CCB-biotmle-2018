@@ -1,4 +1,4 @@
-# Poster: Variance moderation of locally efficient estimators [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
+# Poster: Variance moderation of locally efficient estimators
 
 > Materials for a poster to be given at the 2018 retreat of the Center for
 > Computational Biology at UC Berkeley.
@@ -60,7 +60,4 @@ to circumvent the statistical pitfalls of multiple comparisons.
 &copy; 2018 [Nima S. Hejazi](https://nimahejazi.org), [Mark J. van der
 Laan](https://statistics.berkeley.edu/~laan), [Alan E.
 Hubbard](https://hubbard.berkeley.edu)
-
-The contents of this repository are distributed under the MIT license. See file
-`LICENSE` for details.
 
