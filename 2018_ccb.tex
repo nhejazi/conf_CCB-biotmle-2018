@@ -41,6 +41,9 @@
 \setlength{\parsep}{0pt}
 }
 
+\usepackage[nodisplayskipstretch]{setspace}
+\setstretch{0.95}
+
 \newcommand{\D}{\mathcal{D}}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\F}{\mathcal{F}}
@@ -90,24 +93,26 @@ linewidth=2pt % Width of the border lines around content boxes
 % OVERVIEW
 %-------------------------------------------------------------------------------
 
-\headerbox{Overview}{name=overview,column=0,row=0}{
+\headerbox{Overview \& Motivations}{name=overview,column=0,row=0}{
 
-\begin{enumerate}\compresslist
-  \item We introduce and implement a general approach for applying variance
-    moderation techniques to locally efficient estimators in semiparametric
-    statistical models.
-  \item The approach allows for such estimators to be utilized for differential
-    expression analysis by stabilizing their small-sample properties.
-  \item Focusing on targeted maximum likelihood estimation (TMLE), we illustrate
-    how the approach generalizes to influence function-based estimators.
-  \item We estimate the average treatment effect (ATE) in a study of
-    occupational exposure to benzene, identifying \textbf{3280} significant
-    genes after controlling the FDR at 5\%.
-  \item We further illustrate that our focus on influence function-based
-    estimators allows for supervised clustering.
-\end{enumerate}
+\begin{itemize}
+  \itemsep1pt
+  \item A general approach for applying variance moderation to locally efficient
+    estimators in nonparametric models is introduced.
+  \item While relevant estimation procedures are usually data-intensive,
+    variance moderation stabilizes their small-sample properties, unlocking
+    their use for differential expression analyses.
+  \item Focusing on a targeted maximum likelihood estimator (TMLE) of the
+    average treatment effect (ATE), we illustrate how the approach generalizes
+    to asymptotically linear estimator.
+  \item Supervised clustering is discussed in the context of influence
+    functions, ...
+  \item The \underline{\texttt{biotmle} R package} \cite{hejazi2017biotmle}
+    implements the inference and clustering approaches while leveraging
+    state-of-the-art machine learning in the procedure.
+\end{itemize}
 
-\vspace{0.3em} % When there are two boxes, some whitespace may need to be added
+\vspace{0.1em} % When there are two boxes, some whitespace may need to be added
                % if the one on the right has more content
 }
 
@@ -115,10 +120,11 @@ linewidth=2pt % Width of the border lines around content boxes
 % INTRODUCTION
 %-------------------------------------------------------------------------------
 
-\headerbox{Introduction \& Data}
+\headerbox{Data: Benzene Biomarkers}
 {name=introduction,column=1,row=0,bottomaligned=overview}{
 
-\begin{itemize}\compresslist
+\begin{itemize}
+  \itemsep1pt
   \item With the growing number of methods for measuring biomarkers there arises
     a need for methodologies able to simultaneously analyze multiple kinds of
     exposome data.
@@ -139,39 +145,31 @@ linewidth=2pt % Width of the border lines around content boxes
 %-------------------------------------------------------------------------------
 \headerbox{Methodology II: Supervised Distance Matrices}{name=results,column=2,span=2,row=0}{
 
-\begin{multicols}{2}
-
-\begin{center}
-\includegraphics[scale=0.3]{topGenesHeatmap}
-%\captionof{figure}{raw p-values from applying Limma}
-\end{center}
-
-\begin{center}
-\includegraphics[scale=0.3]{topGenesHeatmap}
-%\captionof{figure}{BH-corrected p-values from applying Limma}
-\end{center}
-
-\end{multicols}
-
-%------------------------------------------------
-
-\begin{multicols}{2}
-
-\begin{itemize}\compresslist
-\item The raw p-values are bimodally distributed, with a uniform distribution outside 
-of the peaks, and clusters near $0$ and $1$. 
-\item These raw p-values must be adjusted on account of the $\sim 22,000$ 
-simultaneous  tests.
+\begin{itemize}
+  \itemsep0.75pt
+  \item Let $\phi: (W, A, Y) \mapsto D_b(P_0)(O)$ be the EIF transformation,
+    where $D_b(P_0)(O_i)$ is the contribution of subject $i$ to the estimate of
+    the biomarker-specific target parameter $\Psi_{b,n}$.
+  \item $Z = \phi(W, A, Y)$ is then a $B \times N$ matrix, where each entry
+    $(b,i)$ may be interpreted as the degree to which subject $i$ deviates from
+    the target parameter $\Psi_{b,n}$ \cite{hejazi2018+supervised}, and is thus
+    an \textit{association profile}.
+  \item A \textit{supervised distance matrix} \cite{pollard2008supervised}
+    may be constructed by applying a distance metric of choice (e.g., Euclidean,
+    correlation) to the transformed values $Z$.
+  \item $\widetilde{T}(Z)$, the resultant $B \times B$ empirical distance
+    matrix, encodes the dissimilarity between pairs of biomarker association
+    profiles.
+  \item When $\widetilde{T}(b,b') = g(Z_b, Z_{b'})$ is small, biomarkers $b$ and
+    $b'$ have similar associations between expression and the the target
+    parameter $\Psi$, across the $n$ subjects.
+  \item \textit{Supervised clustering} may be performed by applying standard
+    clustering algorithms to the matrix $\widetilde{T}$, thereby finding groups
+    of biomarkers that share an association profile w.r.t.~$\Psi$.
+  \item In the case of the average treatment effect, a supervised cluster in
+    $\widetilde{T}$ of biomarkers is a group whose causal differential
+    expression profiles varies similarly with the treatment $A \in \{0, 1\}$.
 \end{itemize}
-
-\begin{itemize}\compresslist
-\item Using the Benjamini-Hochberg procedure to adjust for multiple comparisons 
-yields an expected distribution of p-values.
-\item \textbf{3280} genes have Benjamini-Hochberg adjusted p-values falling below the 
-5\% FDR.
-\end{itemize}
-
-\end{multicols}
 }
 
 %-------------------------------------------------------------------------------
@@ -182,7 +180,7 @@ yields an expected distribution of p-values.
 \renewcommand{\section}[2]{\vskip 0.05em} % remove "References" section title
 \tiny{ % Reduce the font size in this block
   \setlength{\bibsep}{0.25pt}
-  \bibliographystyle{plainnat}
+  \bibliographystyle{IEEEtran}
   \bibliography{2018_ccb}
   \compresslist
   \vspace{-0.7em}
@@ -197,7 +195,7 @@ yields an expected distribution of p-values.
 % This block is as tall as the references block
 \begin{itemize}
 \itemsep0.25pt
-  \item \textbf{N.S.~Hejazi}, Ph.D.~student, Group in Biostatistics,
+  \item \textbf{N.S.~Hejazi}, Ph.D.~candidate, Group in Biostatistics,
     \textsc{nhejazi@berkeley.edu}
   \item \textbf{M.J.~van der Laan}, Professor of Biostatistics \& Statistics,
     \textsc{laan@berkeley.edu}
@@ -219,26 +217,24 @@ yields an expected distribution of p-values.
 
 \begin{center}
 \vspace*{-0.5cm}
-\includegraphics[scale=0.37]{topGenesHeatmap}
-%\captionof{figure}{This figure demonstrates...}
+\includegraphics[scale=0.30]{topGenesHeatmap}
+\captionof{figure}{A \textit{supervised heatmap} of biomarker association
+  profiles with the ATE.}
 \end{center}
 
 \begin{center}
 %\vspace*{-0.49cm}  % CHANGE THIS TO ALIGN IMAGES
-\includegraphics[scale=0.39]{topGenesHeatmap}
-%\captionof{figure}{This figure demonstrates...}
+\includegraphics[scale=0.2]{topGenesHeatmap}
+\captionof{figure}{Improved error rate control of the variance moderated TMLE
+  for the ATE.}
 \end{center}
 
 \vspace{-15pt}
 
 \begin{itemize}
-  \itemsep0pt
-  \item The heatmap visualizes the ATE difference induced by benzene exposure.
-  \item The x-axis shows the 125 subjects, while the y-axis shows the top 25
-    genes showing highest differential ATE (based on BH adjusted p-values).
-  \item Blue indicates a depression in the ATE, while red indicates an increase
-    in the ATE, based on exposure to the maximal level of benzene as opposed to
-    not.\\
+  \itemsep0.5pt
+  \item Concluding comment...
+  \item Concluding comment...
 \end{itemize}
 
 \end{multicols}
@@ -249,10 +245,11 @@ yields an expected distribution of p-values.
 % METHODS
 %-------------------------------------------------------------------------------
 
-\headerbox{Methodology I: Variance Moderation \& Asymptotic Linearity}{name=method,column=0,span=2,below=overview,bottomaligned=references}{
+\headerbox{Methodology I: Variance Moderation \& Local Efficiency}{name=method,column=0,span=2,below=overview,bottomaligned=references}{
 % This block's bottom aligns with the bottom of the conclusion block
 
 \begin{itemize}
+  %\compresslist
   \itemsep0.50pt
   \item Let observed data $O = (W, A, Y) \sim P_0 \in \M$, where $W$ represents
       potential baseline confounders, $A$ the exposure of interest, and
@@ -275,28 +272,30 @@ yields an expected distribution of p-values.
       %where ${Q_n}^b$ is an initial estimate of ${Q_0}^b$ constructed via
       %\textit{ensemble machine learning} \cite{vdl2007super,breiman1996stacked,
       %wolpert1992stacked}.
-  \item Similarly to the estimator $\hat{\beta}$ in a linear model, the
+  \item Like the estimator $\hat{\beta}$ in a linear model $m(A,W \mid \beta)$,
       $\Psi_b(P_n)$ is \textbf{asymptotically linear} (for $\Psi_b$)
-      \cite{tsiatis2007semiparametric,vdl2011targeted}:
+      \cite{vdl2011targeted}:
       \begin{equation}\label{asymp_lin}
         \sqrt{n} (\Psi_b(P_n) - \Psi_b(P_0)) = \frac{1}{\sqrt{n}} \sum_{i=1}^n
         D_b(O_i) + o_p(1).
       \end{equation}
-  \item $\Psi_b$ has (efficient) influence function, relative to the
+  \item $\Psi_b$ has efficient influence function (EIF), relative to the
       nonparametric model $\M$:
       \begin{equation}\label{eif_ate}
         D_b(P_0)(o) = \left(\frac{I(a = 1)}{g(1 \mid w)} -
-        \frac{I(a = 0)}{g(0 \mid W)}\right) \cdot [y_b - Q_0^b(a, w)] +
-        Q_0^b(1, w) - Q_0^b(0, w) - \Psi_b(P_0)(o).
+        \frac{I(a = 0)}{g(0 \mid w)}\right) \cdot \left[y_b - Q_0^b(a, w)\right]
+        + \left(Q_0^b(1, w) - Q_0^b(0, w) - \Psi_b(P_0)(o)\right).
       \end{equation}
-  \item The moderated t-statistic \cite{smyth2004linear,smyth2005limma} may be
-    applied readily to asymptotically linear estimators:
-    $\tilde{t}_b = \frac{\sqrt{n}(\Psi_b(P_n) - \psi_0)}{S_b(D_{b,n})}$, where
-    $\tilde{S}_{b,n}^2 = \frac{d_0S_0^2 + d_bS_b^2(D_{b,n})}{d_0 + d_b}$ where
-    $d_b$ is the degrees of freedom for the $b^{th}$ biomarker, $d_0$ is the
-    degrees of freedom for the remaining $(B - 1)$ biomarkers, $S_b$ is the
-    standard deviation for the $b^{th}$ biomarker and $S_0$ is the common
-    standard deviation across all biomarkers.
+  \item A moderated test statistic \cite{smyth2004linear,smyth2005limma,
+      hejazi2018+supervised} may be constructed for use wiht asymptotically
+      linear estimators:
+      \begin{equation}\label{mod_eif}
+        \tilde{t}_b = \frac{\sqrt{n}(\Psi_b(P_n) - \psi_0)}{S_b(D_{b,n})}
+        \quad \text{where} \quad
+        \tilde{S}_{b,n}^2 = \frac{d_0S_0^2 + d_bS_b^2(D_{b,n})}{d_0 + d_b},
+      \end{equation}
+    $\{S_b, d_b\}$: var.~EIF and df for $b^{th}$ biomarker;
+    $\{S_0, d_0\}$: var.~EIF and df for other $(B-1)$ biomarkers.
 \end{itemize}
 
 }
