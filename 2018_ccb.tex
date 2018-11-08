@@ -165,8 +165,9 @@ linewidth=2pt % Width of the border lines around content boxes
     similar contriubtions to the target parameter $\Psi$, across the $n$
     subjects.
   \item \textit{Supervised clustering} may be performed by applying standard
-    clustering algorithms to the matrix $\widetilde{T}$, thereby finding groups
-    of biomarkers that share an association profile w.r.t.~$\Psi$.
+    unsupervised clustering algorithms to the matrix $\widetilde{T}$, thereby
+    finding groups of biomarkers that share an association profile
+    w.r.t.~$\Psi$.
   \item In the case of the average treatment effect, a supervised cluster in
     $\widetilde{T}$ of biomarkers is a group whose causal differential
     expression profiles varies similarly with the treatment $A \in \{0, 1\}$.
@@ -217,17 +218,17 @@ linewidth=2pt % Width of the border lines around content boxes
 \begin{multicols}{2}
 
 \begin{center}
-\vspace*{-0.5cm}
+\vspace*{-0.50cm}
 \includegraphics[scale=0.35]{supervised_heatmap}
-\captionof{figure}{A \textit{supervised heatmap} of biomarker association
-  profiles with the ATE.}
+\captionof{figure}{\textit{Supervised heatmap} of biomarker contributions to the
+  ATE.}
 \end{center}
 
 \begin{center}
-%\vspace*{-0.49cm}  % CHANGE THIS TO ALIGN IMAGES
+\vspace*{-0.57cm}  % CHANGE THIS TO ALIGN IMAGES
 \includegraphics[scale=0.35]{topGenesHeatmap}
-\captionof{figure}{Improved error rate control of the variance moderated TMLE
-  for the ATE.}
+\captionof{figure}{Enhanced error rate control of the variance-moderated TMLE
+  of the ATE.}
 \end{center}
 
 \end{multicols}
@@ -279,9 +280,8 @@ linewidth=2pt % Width of the border lines around content boxes
         \frac{I(a = 0)}{g(0 \mid w)}\right) \cdot \left[y_b - Q_0^b(a, w)\right]
         + \left(Q_0^b(1, w) - Q_0^b(0, w) - \Psi_b(P_0)(o)\right).
       \end{equation}
-  \item A moderated test statistic \cite{smyth2004linear,smyth2005limma,
-      hejazi2018+supervised} may be constructed for use wiht asymptotically
-      linear estimators:
+  \item A moderated test statistic \cite{smyth2004linear,hejazi2018+supervised}
+      may be constructed for use wiht asymptotically linear estimators:
       \begin{equation}\label{mod_eif}
         \widetilde{t}_b = \frac{\sqrt{n}(\Psi_b(P_n) -
           \psi_{\text{null}})}{\widetilde{S}_{b,n}^2}

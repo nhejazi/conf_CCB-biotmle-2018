@@ -1,10 +1,10 @@
-# Poster: Variance moderation of locally efficient estimators
+# Poster: Variance moderation for locally efficient estimators
 
 > Materials for a poster to be given at the 2018 retreat of the Center for
 > Computational Biology at UC Berkeley.
 
-**Authors:**_ [Nima S. Hejazi](https://nimahejazi.org), [Mark J. van der
-Laan](https://statistics.berkeley.edu/~laan), [Alan E.
+**Authors:** [Nima Hejazi](https://nimahejazi.org), [Mark van der
+Laan](https://statistics.berkeley.edu/~laan), [Alan
 Hubbard](https://hubbard.berkeley.edu)
 
 ---
