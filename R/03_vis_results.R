@@ -17,22 +17,16 @@ p2 <- plot(x = eif_results, type = "pvals_raw") +
 p2
 dev.off()
 
-mean_param_subj <- colSums(eif_results@tmleOut)
-
+#mean_param_subj <- colSums(eif_results@tmleOut)
 pdf(file = here("figs", "supervised_heatmap.pdf"))
 heatmap_ic(x = eif_results,
-           yt = colMeans(eif_results@tmleOut),
-           yt.plot.type = "bar",
-           yt.axis.name = "Marginal ATE",
-           yt.plot.size = 0.4,
-           yt.axis.name.size = 10,
            clustering.method = "hierarchical",
            left.label = "none",
            #bottom.label = "variable",
-           #col.dendrogram = TRUE,
+           row.dendrogram = TRUE,
            pretty.order.rows = TRUE,
-           #pretty.order.cols = TRUE,
-           dist.method = "manhattan",
+           pretty.order.cols = TRUE,
+           #dist.method = "manhattan",
            #linkage.method = "centroid",
            #smooth.heat = TRUE,
            scale = TRUE,
